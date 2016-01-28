@@ -1,0 +1,14 @@
+PODS:
+  - SWSegmentedControl (0.1.0)
+
+DEPENDENCIES:
+  - SWSegmentedControl (from `../`)
+
+EXTERNAL SOURCES:
+  SWSegmentedControl:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  SWSegmentedControl: 61db6b81d2cd9cb0bc93a2b002b9164fc83f9373
+
+COCOAPODS: 0.39.0
