@@ -19,9 +19,30 @@ class ViewController: UIViewController {
         
         let sc = SWSegmentedControl(items: ["A", "B", "C"])
         sc.frame = CGRect(x: 0, y: 0, width: 300, height: 44)
+        sc.selectedSegmentIndex = 2
         
         self.view.addSubview(sc)
+
         
+        let sc2 = SWSegmentedControl(items: ["A", "B", "C"])
+        sc2.selectedSegmentIndex = 1
+        sc2.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(sc2)
+        
+        let constraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[sc2]|", options: [], metrics: nil, views: ["sc2": sc2])
+        NSLayoutConstraint.activateConstraints(constraints)
+        
+        
+        let constraints2 = NSLayoutConstraint.constraintsWithVisualFormat("V:[sc2(44)]", options: [], metrics: nil, views: ["sc2": sc2])
+        NSLayoutConstraint.activateConstraints(constraints2)
+        
+        let centerY = NSLayoutConstraint(item: sc2, attribute: .CenterY, relatedBy: .Equal, toItem: self.view, attribute: .CenterY, multiplier: 1, constant: 0)
+        self.view.addConstraint(centerY)
+        
+        
+        
+
+
     }
 
     @IBAction func didTapButton(sender: AnyObject) {

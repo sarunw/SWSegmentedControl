@@ -29,7 +29,7 @@ public class SWSegmentedControl: UIControl {
     
     @IBInspectable public var selectedSegmentIndex: Int = 0 {
         didSet {
-            self.indicatorXConstraint.constant =  CGFloat(self.selectedSegmentIndex) * self.itemWidth
+            self.configureIndicator()
         }
     }
     private var indicatorXConstraint: NSLayoutConstraint!
@@ -74,6 +74,13 @@ public class SWSegmentedControl: UIControl {
     
     public override func prepareForInterfaceBuilder() {
 
+    }
+    
+    public override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        // For autolayout
+        self.configureIndicator()
     }
     
     private func initIndicator() {
@@ -179,6 +186,7 @@ public class SWSegmentedControl: UIControl {
     }
     
     private func configureIndicator() {
+        self.indicatorXConstraint.constant =  CGFloat(self.selectedSegmentIndex) * self.itemWidth
         self.selectionIndicatorView.backgroundColor = self.colorToUse(self.indicatorColor)
     }
     
@@ -218,6 +226,6 @@ public class SWSegmentedControl: UIControl {
     }
     
     private var itemWidth: CGFloat {
-        return self.wToItem.bounds.size.width
+        return self.bounds.size.width / CGFloat(self.numberOfSegments)
     }
 }
