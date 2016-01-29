@@ -2,6 +2,8 @@
 
 A Android-like tab bar, drop-in replacement for UISegmentedControl written in Swift.
 
+![Live Demo](https://cloud.githubusercontent.com/assets/795368/12671575/2345a69a-c6a3-11e5-94f6-e8cd9e7c0be9.gif)
+
 ## Requirements
 
 Requires iOS 8.0 and ARC.
