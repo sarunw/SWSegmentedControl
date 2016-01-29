@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -17,40 +18,51 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T7m-Xq-Q3Q">
-                                <rect key="frame" x="267" y="396" width="66" height="30"/>
-                                <state key="normal" title="Animated"/>
-                                <connections>
-                                    <action selector="didTapButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="drJ-3y-p02"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="be8-rV-Eyw">
-                                <rect key="frame" x="255" y="434" width="91" height="30"/>
-                                <state key="normal" title="No animation"/>
+                                <rect key="frame" x="10" y="504" width="580" height="30"/>
+                                <state key="normal" title="Change programmatically (not animated)"/>
                                 <connections>
                                     <action selector="didTapNoAnimation:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="OXN-EI-VGD"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yAZ-P8-ugo" customClass="SWSegmentedControl" customModule="SWSegmentedControl">
-                                <rect key="frame" x="150" y="250" width="300" height="100"/>
-                                <color key="tintColor" red="0.30588235289999999" green="0.73725490199999999" blue="0.76078431369999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <rect key="frame" x="150" y="320" width="300" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="PiA-0D-MvJ"/>
                                     <constraint firstAttribute="width" constant="300" id="ois-mB-FIe"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="titleColor">
+                                        <color key="value" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="indicatorColor">
+                                        <color key="value" red="0.93333333330000001" green="0.2274509804" blue="0.26274509800000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="segmentedChanged:" destination="vXZ-lx-hvc" eventType="valueChanged" id="eP3-dn-crB"/>
                                 </connections>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T7m-Xq-Q3Q">
+                                <rect key="frame" x="10" y="466" width="580" height="30"/>
+                                <state key="normal" title="Change programmatically (animated)"/>
+                                <connections>
+                                    <action selector="didTapButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="drJ-3y-p02"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="T7m-Xq-Q3Q" secondAttribute="trailing" constant="10" id="3bS-zH-lsU"/>
                             <constraint firstItem="yAZ-P8-ugo" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="7AW-ly-Lxx"/>
                             <constraint firstItem="T7m-Xq-Q3Q" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="Lvn-wb-nL3"/>
                             <constraint firstItem="T7m-Xq-Q3Q" firstAttribute="top" secondItem="yAZ-P8-ugo" secondAttribute="bottom" constant="46" id="NIA-Nb-aO7"/>
-                            <constraint firstItem="yAZ-P8-ugo" firstAttribute="centerY" secondItem="kh9-bI-dsS" secondAttribute="centerY" id="Osc-Yg-a4N"/>
+                            <constraint firstItem="yAZ-P8-ugo" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="centerY" constant="20" id="Osc-Yg-a4N"/>
+                            <constraint firstAttribute="trailing" secondItem="be8-rV-Eyw" secondAttribute="trailing" constant="10" id="Swz-yl-eZG"/>
                             <constraint firstItem="be8-rV-Eyw" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="WIn-VZ-QRs"/>
+                            <constraint firstItem="T7m-Xq-Q3Q" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="eXe-RH-5x8"/>
                             <constraint firstItem="be8-rV-Eyw" firstAttribute="top" secondItem="T7m-Xq-Q3Q" secondAttribute="bottom" constant="8" id="i5V-Rt-ABg"/>
+                            <constraint firstItem="be8-rV-Eyw" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="tRS-WI-A5I"/>
                         </constraints>
                     </view>
                     <connections>
@@ -59,6 +71,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="305" y="194"/>
         </scene>
     </scenes>
 </document>
