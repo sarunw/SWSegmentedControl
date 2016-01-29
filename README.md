@@ -1,15 +1,10 @@
 # SWSegmentedControl
 
-[![CI Status](http://img.shields.io/travis/Sarun Wongpatcharapakorn/SWSegmentedControl.svg?style=flat)](https://travis-ci.org/Sarun Wongpatcharapakorn/SWSegmentedControl)
-[![Version](https://img.shields.io/cocoapods/v/SWSegmentedControl.svg?style=flat)](http://cocoapods.org/pods/SWSegmentedControl)
-[![License](https://img.shields.io/cocoapods/l/SWSegmentedControl.svg?style=flat)](http://cocoapods.org/pods/SWSegmentedControl)
-[![Platform](https://img.shields.io/cocoapods/p/SWSegmentedControl.svg?style=flat)](http://cocoapods.org/pods/SWSegmentedControl)
-
-## Usage
-
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+A Android-like tab bar, drop-in replacement for UISegmentedControl written in Swift.
 
 ## Requirements
+
+Requires iOS 8.0 and ARC.
 
 ## Installation
 
@@ -20,9 +15,39 @@ it, simply add the following line to your Podfile:
 pod "SWSegmentedControl"
 ```
 
+## Usage
+
+SWSegmentedControl can only be init in code due to the limitation of @IBDesignable which can't generate array of item like what UISegmentedControl can do, but I make it renderable anyway just in case you want to play around with it.
+
+### Basic usage
+
+```
+let sc = SWSegmentedControl(items: ["A", "B", "C"])
+sc.frame = CGRect(x: 0, y: 0, width: 300, height: 44)
+sc.selectedSegmentIndex = 2 // default to 0
+```
+
+### Change segment programmatically
+
+Setting property directly will change segment without animation
+
+```
+sc.selectedSegmentIndex = 1
+```
+
+If you want fine-grain control over animation, you can use `setSelectedSegmentIndex(index: Int, animated: Bool`
+
+```
+sc.setSelectedSegmentIndex(1, animated: true)
+```
+
+### Customization
+
+By default both text and indicator color are the same with `tintColor`. If you want to change theme independently you can use `titleColor` and `indicatorColor` and you can also change font by set `font`.
+
 ## Author
 
-Sarun Wongpatcharapakorn, artwork.th@gmail.com
+[Sarun Wongpatcharapakorn](artwork.th@gmail.com) ([@sarunw](https://twitter.com/sarunw))
 
 ## License
 
