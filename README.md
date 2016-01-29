@@ -47,7 +47,7 @@ By default both text and indicator color are the same with `tintColor`. If you w
 
 ## Author
 
-[Sarun Wongpatcharapakorn](artwork.th@gmail.com) ([@sarunw](https://twitter.com/sarunw))
+Sarun Wongpatcharapakorn (artwork.th@gmail.com) Twitter: [@sarunw](https://twitter.com/sarunw)
 
 ## License
 
