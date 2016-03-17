@@ -15,12 +15,25 @@ public class SWSegmentedControl: UIControl {
     private var buttons: [UIButton]?
     private var items: [String] = ["First", "Second"]
     
-    @IBInspectable public var font: UIFont = UIFont.systemFontOfSize(UIFont.systemFontSize()) // Wait for a day UIFont will be inspectable
+    // Wait for a day UIFont will be inspectable
+    @IBInspectable public var font: UIFont = UIFont.systemFontOfSize(UIFont.systemFontSize()) {
+        didSet {
+            self.configureView()
+        }
+    }
+    
     @IBInspectable public var titleColor: UIColor? {
         didSet {
             self.configureView()
         }
     }
+    
+    @IBInspectable public var unselectedTitleColor: UIColor? = UIColor.lightGrayColor() {
+        didSet {
+            self.configureView()
+        }
+    }
+    
     @IBInspectable public var indicatorColor: UIColor? {
         didSet {
             self.configureView()
@@ -30,6 +43,15 @@ public class SWSegmentedControl: UIControl {
     @IBInspectable public var selectedSegmentIndex: Int = 0 {
         didSet {
             self.configureIndicator()
+
+            if let buttons = self.buttons {
+                for button in buttons {
+                    button.selected = false
+                }
+                
+                let selectedButton = buttons[selectedSegmentIndex]
+                selectedButton.selected = true
+            }
         }
     }
     private var indicatorXConstraint: NSLayoutConstraint!
@@ -70,6 +92,8 @@ public class SWSegmentedControl: UIControl {
         self.backgroundColor = UIColor.clearColor()
         self.initButtons()
         self.initIndicator()
+        
+        self.selectedSegmentIndex = 0
     }
     
     public override func prepareForInterfaceBuilder() {
@@ -202,7 +226,8 @@ public class SWSegmentedControl: UIControl {
     
     private func configureButton(button: UIButton) {
         button.titleLabel?.font = self.font
-        button.setTitleColor(self.colorToUse(self.titleColor), forState: .Normal)
+        button.setTitleColor(self.colorToUse(self.titleColor), forState: .Selected)
+        button.setTitleColor(self.unselectedTitleColor, forState: .Normal)
 
     }
     
@@ -211,6 +236,7 @@ public class SWSegmentedControl: UIControl {
         guard let index = self.buttons?.indexOf(button) else {
             return
         }
+        
         self.setSelectedSegmentIndex(index)
         self.sendActionsForControlEvents(.ValueChanged)
     }
