@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-public class SWSegmentedControl: UIControl {
+@objc public class SWSegmentedControl: UIControl {
     
     private var selectionIndicatorView: UIView!
     private var buttons: [UIButton]?
