@@ -23,7 +23,7 @@ class ViewController: UIViewController {
         var center = self.view.center;
         center.y = 40
         sc.center = center
-        sc.autoresizingMask = [.FlexibleWidth, .FlexibleBottomMargin]
+        sc.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
         sc.selectedSegmentIndex = 2
         self.view.addSubview(sc)
 
@@ -33,25 +33,25 @@ class ViewController: UIViewController {
         sc2.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(sc2)
         
-        let constraints = NSLayoutConstraint.constraintsWithVisualFormat("H:|[sc2]|", options: [], metrics: nil, views: ["sc2": sc2])
-        NSLayoutConstraint.activateConstraints(constraints)
+        let constraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[sc2]|", options: [], metrics: nil, views: ["sc2": sc2])
+        NSLayoutConstraint.activate(constraints)
         
-        let constraints2 = NSLayoutConstraint.constraintsWithVisualFormat("V:[sc2(44)]", options: [], metrics: nil, views: ["sc2": sc2])
-        NSLayoutConstraint.activateConstraints(constraints2)
+        let constraints2 = NSLayoutConstraint.constraints(withVisualFormat: "V:[sc2(44)]", options: [], metrics: nil, views: ["sc2": sc2])
+        NSLayoutConstraint.activate(constraints2)
         
-        let centerY = NSLayoutConstraint(item: sc2, attribute: .CenterY, relatedBy: .Equal, toItem: self.view, attribute: .CenterY, multiplier: 1, constant: 0)
+        let centerY = NSLayoutConstraint(item: sc2, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 1, constant: 0)
         self.view.addConstraint(centerY)        
     }
 
-    @IBAction func didTapButton(sender: AnyObject) {
+    @IBAction func didTapButton(_ sender: AnyObject) {
         self.segmentedControl.setSelectedSegmentIndex(1)
     }
 
-    @IBAction func didTapNoAnimation(sender: AnyObject) {
+    @IBAction func didTapNoAnimation(_ sender: AnyObject) {
         self.segmentedControl.selectedSegmentIndex = 1
     }
     
-    @IBAction func segmentedChanged(sender: SWSegmentedControl) {
+    @IBAction func segmentedChanged(_ sender: SWSegmentedControl) {
         print("select: \(sender.selectedSegmentIndex)")
     }
     

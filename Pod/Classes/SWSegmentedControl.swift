@@ -16,7 +16,7 @@ public class SWSegmentedControl: UIControl {
     private var items: [String] = ["First", "Second"]
     
     // Wait for a day UIFont will be inspectable
-    @IBInspectable public var font: UIFont = UIFont.systemFontOfSize(UIFont.systemFontSize()) {
+    @IBInspectable public var font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize()) {
         didSet {
             self.configureView()
         }
@@ -28,7 +28,7 @@ public class SWSegmentedControl: UIControl {
         }
     }
     
-    @IBInspectable public var unselectedTitleColor: UIColor? = UIColor.lightGrayColor() {
+    @IBInspectable public var unselectedTitleColor: UIColor? = UIColor.lightGray() {
         didSet {
             self.configureView()
         }
@@ -46,11 +46,11 @@ public class SWSegmentedControl: UIControl {
 
             if let buttons = self.buttons {
                 for button in buttons {
-                    button.selected = false
+                    button.isSelected = false
                 }
                 
                 let selectedButton = buttons[selectedSegmentIndex]
-                selectedButton.selected = true
+                selectedButton.isSelected = true
             }
         }
     }
@@ -68,7 +68,7 @@ public class SWSegmentedControl: UIControl {
     }
     
     public init() {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         self.commonInit()
     }
     
@@ -83,13 +83,13 @@ public class SWSegmentedControl: UIControl {
     }
     
     public init(items: [String]) {
-        super.init(frame: CGRectZero)
+        super.init(frame: CGRect.zero)
         self.items = items
         self.commonInit()
     }
     
     private func commonInit() {
-        self.backgroundColor = UIColor.clearColor()
+        self.backgroundColor = UIColor.clear()
         self.initButtons()
         self.initIndicator()
         
@@ -117,17 +117,17 @@ public class SWSegmentedControl: UIControl {
         selectionIndicatorView.backgroundColor = self.tintColor
         self.addSubview(selectionIndicatorView)
         
-        let xConstraint = NSLayoutConstraint(item: selectionIndicatorView, attribute: .CenterX, relatedBy: .Equal, toItem: self.xToItem, attribute: .CenterX, multiplier: 1, constant: 0)
+        let xConstraint = NSLayoutConstraint(item: selectionIndicatorView, attribute: .centerX, relatedBy: .equal, toItem: self.xToItem, attribute: .centerX, multiplier: 1, constant: 0)
         self.indicatorXConstraint = xConstraint
         self.addConstraint(xConstraint)
         
-        let yConstraint = NSLayoutConstraint(item: selectionIndicatorView, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1, constant: 0)
+        let yConstraint = NSLayoutConstraint(item: selectionIndicatorView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
         self.addConstraint(yConstraint)
         
-        let wConstraint = NSLayoutConstraint(item: selectionIndicatorView, attribute: .Width, relatedBy: .Equal, toItem: self.wToItem, attribute: .Width, multiplier: 1, constant: 0)
+        let wConstraint = NSLayoutConstraint(item: selectionIndicatorView, attribute: .width, relatedBy: .equal, toItem: self.wToItem, attribute: .width, multiplier: 1, constant: 0)
         self.addConstraint(wConstraint)
         
-        let hConstraint = NSLayoutConstraint(item: selectionIndicatorView, attribute: .Height, relatedBy: .Equal, toItem: nil, attribute: .NotAnAttribute, multiplier: 1, constant: self.indicatorThickness)
+        let hConstraint = NSLayoutConstraint(item: selectionIndicatorView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: self.indicatorThickness)
         self.indicatorHeightConstraint = hConstraint
         self.addConstraint(hConstraint)
     }
@@ -145,11 +145,11 @@ public class SWSegmentedControl: UIControl {
             self.buttons = buttons
         }
         for index in 0..<self.numberOfSegments {
-            let button = UIButton(type: .Custom)
+            let button = UIButton(type: .custom)
             self.configureButton(button)
             button.translatesAutoresizingMaskIntoConstraints = false
-            button.setTitle(self.titleForSegmentAtIndex(index), forState: .Normal)
-            button.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
+            button.setTitle(self.titleForSegmentAtIndex(index), for: UIControlState())
+            button.addTarget(self, action: "didTapButton:", for: .touchUpInside)
             
             buttons.append(button)
             self.addSubview(button)
@@ -157,24 +157,24 @@ public class SWSegmentedControl: UIControl {
             let buttonName = "button\(index)"
             views[buttonName] = button
             if let previousButtonName = previousButtonName {
-                xVisualFormat.appendContentsOf("[\(buttonName)(==\(previousButtonName))]")
+                xVisualFormat.append("[\(buttonName)(==\(previousButtonName))]")
             } else {
-                xVisualFormat.appendContentsOf("[\(buttonName)]")
+                xVisualFormat.append("[\(buttonName)]")
             }
             
             previousButtonName = buttonName
         }
         
-        xVisualFormat.appendContentsOf("|")
+        xVisualFormat.append("|")
         
-        let xConstraints = NSLayoutConstraint.constraintsWithVisualFormat(xVisualFormat, options: [.AlignAllTop, .AlignAllBottom], metrics: nil, views: views)
-        let yConstraints = NSLayoutConstraint.constraintsWithVisualFormat(yVisualFormat, options: [], metrics: nil, views: views)
+        let xConstraints = NSLayoutConstraint.constraints(withVisualFormat: xVisualFormat, options: [.alignAllTop, .alignAllBottom], metrics: nil, views: views)
+        let yConstraints = NSLayoutConstraint.constraints(withVisualFormat: yVisualFormat, options: [], metrics: nil, views: views)
         
-        NSLayoutConstraint.activateConstraints(xConstraints)
-        NSLayoutConstraint.activateConstraints(yConstraints)
+        NSLayoutConstraint.activate(xConstraints)
+        NSLayoutConstraint.activate(yConstraints)
     }
     
-    public func titleForSegmentAtIndex(segment: Int) -> String? {
+    public func titleForSegmentAtIndex(_ segment: Int) -> String? {
         guard segment < self.items.count else {
             return nil
         }
@@ -182,9 +182,9 @@ public class SWSegmentedControl: UIControl {
         return self.items[segment]
     }
     
-    public func setSelectedSegmentIndex(index: Int, animated: Bool = true) {
+    public func setSelectedSegmentIndex(_ index: Int, animated: Bool = true) {
         if animated {
-            UIView.animateWithDuration(0.1, animations: {
+            UIView.animate(withDuration: 0.1, animations: {
                 self.selectedSegmentIndex = index
                 self.layoutIfNeeded()
             })
@@ -205,7 +205,7 @@ public class SWSegmentedControl: UIControl {
         self.configureButtons()
     }
     
-    private func colorToUse(color: UIColor?) -> UIColor {
+    private func colorToUse(_ color: UIColor?) -> UIColor {
         return color ?? self.tintColor
     }
     
@@ -224,21 +224,21 @@ public class SWSegmentedControl: UIControl {
         }
     }
     
-    private func configureButton(button: UIButton) {
+    private func configureButton(_ button: UIButton) {
         button.titleLabel?.font = self.font
-        button.setTitleColor(self.colorToUse(self.titleColor), forState: .Selected)
-        button.setTitleColor(self.unselectedTitleColor, forState: .Normal)
+        button.setTitleColor(self.colorToUse(self.titleColor), for: .selected)
+        button.setTitleColor(self.unselectedTitleColor, for: UIControlState())
 
     }
     
     // MARK: - Actions
-    func didTapButton(button: UIButton) {
-        guard let index = self.buttons?.indexOf(button) else {
+    func didTapButton(_ button: UIButton) {
+        guard let index = self.buttons?.index(of: button) else {
             return
         }
         
         self.setSelectedSegmentIndex(index)
-        self.sendActionsForControlEvents(.ValueChanged)
+        self.sendActions(for: .valueChanged)
     }
     
     // MARK: - Layout Helpers
