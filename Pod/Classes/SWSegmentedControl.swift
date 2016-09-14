@@ -149,7 +149,7 @@ public class SWSegmentedControl: UIControl {
             self.configureButton(button)
             button.translatesAutoresizingMaskIntoConstraints = false
             button.setTitle(self.titleForSegmentAtIndex(index), forState: .Normal)
-            button.addTarget(self, action: "didTapButton:", forControlEvents: .TouchUpInside)
+            button.addTarget(self, action: #selector(SWSegmentedControl.didTapButton(_:)), forControlEvents: .TouchUpInside)
             
             buttons.append(button)
             self.addSubview(button)
