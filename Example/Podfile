@@ -1,12 +1,10 @@
 source 'https://github.com/CocoaPods/Specs.git'
 use_frameworks!
 
-target 'SWSegmentedControl_Example', :exclusive => true do
-  pod 'SWSegmentedControl', :path => '../'
-end
-
-target 'SWSegmentedControl_Tests', :exclusive => true do
+target 'SWSegmentedControl_Example' do
   pod 'SWSegmentedControl', :path => '../'
 
-  
+  target 'SWSegmentedControl_Tests' do
+    inherit! :search_paths    
+  end
 end
