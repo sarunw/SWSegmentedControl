@@ -5,6 +5,9 @@ target 'SWSegmentedControl_Example' do
   pod 'SWSegmentedControl', :path => '../'
 
   target 'SWSegmentedControl_Tests' do
-    inherit! :search_paths    
+    inherit! :search_paths
+    
+    
+    pod 'FBSnapshotTestCase'
   end
 end

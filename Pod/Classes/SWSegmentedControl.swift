@@ -11,9 +11,10 @@ import UIKit
 @IBDesignable
 open class SWSegmentedControl: UIControl {
     
-    fileprivate var selectionIndicatorView: UIView!
-    fileprivate var buttons: [UIButton]?
-    fileprivate var items: [String] = ["First", "Second"]
+    private var selectionIndicatorView: UIView!
+    private var buttons: [UIButton]?
+    private var items: [String] = ["First", "Second"]
+    
     
     // Wait for a day UIFont will be inspectable
     @IBInspectable open var font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize) {
@@ -54,18 +55,29 @@ open class SWSegmentedControl: UIControl {
             }
         }
     }
-    fileprivate var indicatorXConstraint: NSLayoutConstraint!
+    
+    private var indicatorXConstraint: NSLayoutConstraint!
     
     @IBInspectable open var indicatorThickness: CGFloat = 3 {
         didSet {
             self.indicatorHeightConstraint.constant = self.indicatorThickness
         }
     }
-    fileprivate var indicatorHeightConstraint: NSLayoutConstraint!
+    
+    private var indicatorWidthConstraint: NSLayoutConstraint!
+    
+    @IBInspectable open var indicatorPadding: CGFloat = 0 {
+        didSet {
+            configureView()
+        }
+    }
+    
+    private var indicatorHeightConstraint: NSLayoutConstraint!
     
     var numberOfSegments: Int {
         return items.count
     }
+    
     
     public init() {
         super.init(frame: CGRect.zero)
@@ -88,7 +100,7 @@ open class SWSegmentedControl: UIControl {
         self.commonInit()
     }
     
-    fileprivate func commonInit() {
+    private func commonInit() {
         self.backgroundColor = UIColor.clear
         self.initButtons()
         self.initIndicator()
@@ -107,7 +119,7 @@ open class SWSegmentedControl: UIControl {
         self.configureIndicator()
     }
     
-    fileprivate func initIndicator() {
+    private func initIndicator() {
         guard self.numberOfSegments > 0 else { return }
         
         let selectionIndicatorView = UIView()
@@ -124,7 +136,8 @@ open class SWSegmentedControl: UIControl {
         let yConstraint = NSLayoutConstraint(item: selectionIndicatorView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0)
         self.addConstraint(yConstraint)
         
-        let wConstraint = NSLayoutConstraint(item: selectionIndicatorView, attribute: .width, relatedBy: .equal, toItem: self.wToItem, attribute: .width, multiplier: 1, constant: 0)
+        let wConstraint = NSLayoutConstraint(item: selectionIndicatorView, attribute: .width, relatedBy: .equal, toItem: self.wToItem, attribute: .width, multiplier: 1, constant: -(2 * indicatorPadding))
+        indicatorWidthConstraint = wConstraint
         self.addConstraint(wConstraint)
         
         let hConstraint = NSLayoutConstraint(item: selectionIndicatorView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: self.indicatorThickness)
@@ -132,7 +145,7 @@ open class SWSegmentedControl: UIControl {
         self.addConstraint(hConstraint)
     }
     
-    fileprivate func initButtons() {
+    private func initButtons() {
         guard self.numberOfSegments > 0 else { return }
         
         var views = [String: AnyObject]()
@@ -200,21 +213,22 @@ open class SWSegmentedControl: UIControl {
     }
     
     // MARK: - Appearance
-    fileprivate func configureView() {
+    private func configureView() {
         self.configureIndicator()
         self.configureButtons()
     }
     
-    fileprivate func colorToUse(_ color: UIColor?) -> UIColor {
+    private func colorToUse(_ color: UIColor?) -> UIColor {
         return color ?? self.tintColor
     }
     
-    fileprivate func configureIndicator() {
+    private func configureIndicator() {
         self.indicatorXConstraint.constant =  CGFloat(self.selectedSegmentIndex) * self.itemWidth
+        indicatorWidthConstraint.constant = -(2 * indicatorPadding)
         self.selectionIndicatorView.backgroundColor = self.colorToUse(self.indicatorColor)
     }
     
-    fileprivate func configureButtons() {
+    private func configureButtons() {
         guard let buttons = self.buttons else {
             return
         }
@@ -224,7 +238,7 @@ open class SWSegmentedControl: UIControl {
         }
     }
     
-    fileprivate func configureButton(_ button: UIButton) {
+    private func configureButton(_ button: UIButton) {
         button.titleLabel?.font = self.font
         button.setTitleColor(self.colorToUse(self.titleColor), for: .selected)
         button.setTitleColor(self.unselectedTitleColor, for: UIControlState())
@@ -242,16 +256,16 @@ open class SWSegmentedControl: UIControl {
     }
     
     // MARK: - Layout Helpers
-    fileprivate var xToItem: UIView {
+    private var xToItem: UIView {
         return self.buttons![self.selectedSegmentIndex]
     }
     
-    fileprivate var wToItem: UIView {
+    private var wToItem: UIView {
         
         return self.buttons![self.selectedSegmentIndex]
     }
     
-    fileprivate var itemWidth: CGFloat {
+    private var itemWidth: CGFloat {
         return self.bounds.size.width / CGFloat(self.numberOfSegments)
     }
 }

@@ -1,11 +1,13 @@
 import UIKit
 import XCTest
 import SWSegmentedControl
+import FBSnapshotTestCase
 
-class Tests: XCTestCase {
+class Tests: FBSnapshotTestCase {
     
     override func setUp() {
         super.setUp()
+        
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
@@ -14,16 +16,21 @@ class Tests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func testNoPadding() {
         // This is an example of a functional test case.
-        XCTAssert(true, "Pass")
+        let sc = SWSegmentedControl(items: ["A", "B", "C"])
+        sc.frame = CGRect(x: 0, y: 0, width: 300, height: 44)
+        
+        FBSnapshotVerifyView(sc)
     }
     
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure() {
-            // Put the code you want to measure the time of here.
-        }
+    func testPadding() {
+        // This is an example of a functional test case.
+        let sc = SWSegmentedControl(items: ["A", "B", "C"])
+        sc.frame = CGRect(x: 0, y: 0, width: 300, height: 44)
+        sc.indicatorPadding = 10
+        
+        FBSnapshotVerifyView(sc)
     }
     
 }
