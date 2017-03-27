@@ -16,7 +16,7 @@ public class SWSegmentedControl: UIControl {
     private var items: [String] = ["First", "Second"]
     
     // Wait for a day UIFont will be inspectable
-    @IBInspectable public var font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize()) {
+    @IBInspectable public var font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize) {
         didSet {
             self.configureView()
         }
@@ -28,7 +28,7 @@ public class SWSegmentedControl: UIControl {
         }
     }
     
-    @IBInspectable public var unselectedTitleColor: UIColor? = UIColor.lightGray() {
+    @IBInspectable public var unselectedTitleColor: UIColor? = UIColor.lightGray {
         didSet {
             self.configureView()
         }
@@ -88,8 +88,19 @@ public class SWSegmentedControl: UIControl {
         self.commonInit()
     }
     
+    // add : title change
+    public func setTitle(items: [String]) {
+        self.items = items
+        
+        for index in 0..<self.numberOfSegments {
+            self.buttons?[index].setTitle(items[index], for: .normal)
+        }
+        
+    }
+    // ----------------------------------------------------------------
+    
     private func commonInit() {
-        self.backgroundColor = UIColor.clear()
+        self.backgroundColor = UIColor.clear
         self.initButtons()
         self.initIndicator()
         
