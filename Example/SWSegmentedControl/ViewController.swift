@@ -50,6 +50,10 @@ class ViewController: UIViewController {
     @IBAction func didTapNoAnimation(_ sender: AnyObject) {
         self.segmentedControl.selectedSegmentIndex = 1
     }
+	
+	@IBAction func didTapChange(_ sender: AnyObject) {
+		self.segmentedControl.items = ["A", "B", "C", "D"]
+	}
     
     @IBAction func segmentedChanged(_ sender: SWSegmentedControl) {
         print("select: \(sender.selectedSegmentIndex)")
