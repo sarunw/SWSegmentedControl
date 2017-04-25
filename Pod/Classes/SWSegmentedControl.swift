@@ -10,10 +10,17 @@ import UIKit
 
 @IBDesignable
 open class SWSegmentedControl: UIControl {
-    
+	
+	open var items: [String] = ["First", "Second"] {
+		didSet {
+			self.cleanUpButtons()
+			self.commonInit()
+			self.configureView()
+		}
+	}
+	
     private var selectionIndicatorView: UIView!
     private var buttons: [UIButton]?
-    private var items: [String] = ["First", "Second"]
     
     
     // Wait for a day UIFont will be inspectable
@@ -186,6 +193,14 @@ open class SWSegmentedControl: UIControl {
         NSLayoutConstraint.activate(xConstraints)
         NSLayoutConstraint.activate(yConstraints)
     }
+	
+	func cleanUpButtons() {
+		if let buttons = self.buttons {
+			for button in buttons {
+				button.removeFromSuperview()
+			}
+		}
+	}
     
     open func titleForSegmentAtIndex(_ segment: Int) -> String? {
         guard segment < self.items.count else {
