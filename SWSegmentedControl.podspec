@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = "SWSegmentedControl"
-  s.version          = "2.1.0"
+  s.version          = "2.2.0"
   s.summary          = "A Android-like tab bar, drop-in replacement for UISegmentedControl."
 
 # This description is used to generate tags and improve search results.
