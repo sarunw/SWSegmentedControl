@@ -9,7 +9,7 @@
 import UIKit
 import SWSegmentedControl
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, SWSegmentedControlDelegate {
 
     @IBOutlet weak var segmentedControl: SWSegmentedControl!
     
@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         
         // Init with-out autolayout
         let sc = SWSegmentedControl(items: ["A", "B", "C"])
+        sc.delegate = self
         sc.frame = CGRect(x: 0, y: 0, width: 300, height: 44)
         var center = self.view.center;
         center.y = 40
@@ -60,5 +61,29 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
+    // MARK: - SWSegmentedControlDelegate
+    func segmentedControl(_ control: SWSegmentedControl, willSelectItemAtIndex index: Int) {
+        print("will select \(index)")
+    }
+    
+    func segmentedControl(_ control: SWSegmentedControl, didSelectItemAtIndex index: Int) {
+        print("did select \(index)")
+    }
+    
+    func segmentedControl(_ control: SWSegmentedControl, willDeselectItemAtIndex index: Int) {
+        print("will deselect \(index)")
+    }
+    
+    func segmentedControl(_ control: SWSegmentedControl, didDeselectItemAtIndex index: Int) {
+        print("did deselect \(index)")
+    }
+    
+    func segmentedControl(_ control: SWSegmentedControl, canSelectItemAtIndex index: Int) -> Bool {
+        if index == 1 {
+            return false
+        }
+        
+        return true
+    }
 }
 

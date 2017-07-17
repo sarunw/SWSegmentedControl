@@ -11,6 +11,8 @@ import UIKit
 @IBDesignable
 open class SWSegmentedControl: UIControl {
     
+    open weak var delegate: SWSegmentedControlDelegate?
+    
     private var selectionIndicatorView: UIView!
     private var buttons: [UIButton]?
     private var items: [String] = ["First", "Second"]
@@ -251,8 +253,20 @@ open class SWSegmentedControl: UIControl {
             return
         }
         
+        if let shouldSelectItem = delegate?.segmentedControl?(self, canSelectItemAtIndex: index),
+           shouldSelectItem == false {
+            
+            return
+        }
+        
+        delegate?.segmentedControl?(self, willDeselectItemAtIndex: selectedSegmentIndex)
+        delegate?.segmentedControl?(self, willSelectItemAtIndex: index)
+        
         self.setSelectedSegmentIndex(index)
         self.sendActions(for: .valueChanged)
+        
+        delegate?.segmentedControl?(self, didDeselectItemAtIndex: selectedSegmentIndex)
+        delegate?.segmentedControl?(self, didSelectItemAtIndex: index)
     }
     
     // MARK: - Layout Helpers
