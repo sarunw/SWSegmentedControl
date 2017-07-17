@@ -40,7 +40,18 @@ class ViewController: UIViewController {
         NSLayoutConstraint.activate(constraints2)
         
         let centerY = NSLayoutConstraint(item: sc2, attribute: .centerY, relatedBy: .equal, toItem: self.view, attribute: .centerY, multiplier: 1, constant: 0)
-        self.view.addConstraint(centerY)        
+        self.view.addConstraint(centerY)
+        
+        // Init with many item
+        let sc3 = SWSegmentedControl(items: ["Lorem ipsum", "dolor sit amet", "consectetur adipisicing", "elit, sed do", "tempor incididunt"])
+        sc3.frame = CGRect(x: 0, y: 0, width: view.bounds.size.width, height: 44)
+        center = self.view.center;
+        center.y = 120
+        sc3.center = center
+        sc3.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
+        sc3.selectedSegmentIndex = 2
+        self.view.addSubview(sc3)
+        
     }
 
     @IBAction func didTapButton(_ sender: AnyObject) {

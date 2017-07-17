@@ -11,10 +11,17 @@ import UIKit
 @IBDesignable
 open class SWSegmentedControl: UIControl {
     
+    private var scrollView: UIScrollView!
+    private var contentView: UIView!
     private var selectionIndicatorView: UIView!
     private var buttons: [UIButton]?
     private var items: [String] = ["First", "Second"]
     
+    var scrollable: Bool = false {
+        didSet {
+            configureView()
+        }
+    }
     
     // Wait for a day UIFont will be inspectable
     @IBInspectable open var font: UIFont = UIFont.systemFont(ofSize: UIFont.systemFontSize) {
@@ -102,6 +109,8 @@ open class SWSegmentedControl: UIControl {
     
     private func commonInit() {
         self.backgroundColor = UIColor.clear
+        
+        initScrollView()
         self.initButtons()
         self.initIndicator()
         
@@ -117,6 +126,25 @@ open class SWSegmentedControl: UIControl {
         
         // For autolayout
         self.configureIndicator()
+    }
+    
+    private func initScrollView() {
+        scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        
+        addSubview(scrollView)
+        
+        let views: [String: Any] = ["scrollView": scrollView]
+        let xConstraints = NSLayoutConstraint.constraints(withVisualFormat: "H:|[scrollView]|", options: [], metrics: nil, views: views)
+        let yConstraints = NSLayoutConstraint.constraints(withVisualFormat: "V:|[scrollView]|", options: [], metrics: nil, views: views)
+        
+        addConstraints(xConstraints)
+        addConstraints(yConstraints)
+        
+        contentView = UIView()
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        
+        scrollView.addSubview(contentView)
     }
     
     private func initIndicator() {
