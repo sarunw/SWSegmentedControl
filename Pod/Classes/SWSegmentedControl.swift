@@ -163,7 +163,7 @@ open class SWSegmentedControl: UIControl {
             let button = UIButton(type: .custom)
             self.configureButton(button)
             button.translatesAutoresizingMaskIntoConstraints = false
-            button.setTitle(self.titleForSegmentAtIndex(index), for: UIControlState())
+            button.setTitle(self.titleForSegmentAtIndex(index), for: .normal)
             button.addTarget(self, action: #selector(SWSegmentedControl.didTapButton(_:)), for: .touchUpInside)
             
             buttons.append(button)
@@ -187,6 +187,17 @@ open class SWSegmentedControl: UIControl {
         
         NSLayoutConstraint.activate(xConstraints)
         NSLayoutConstraint.activate(yConstraints)
+    }
+    
+    open func setTitle(_ title: String, forSegmentAt index: Int) {
+        guard let buttons = buttons, index < items.count else {
+            return
+        }
+        
+        items[index] = title
+        
+        let button = buttons[index]
+        button.setTitle(title, for: .normal)
     }
     
     open func titleForSegmentAtIndex(_ segment: Int) -> String? {
