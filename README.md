@@ -23,7 +23,7 @@ SWSegmentedControl can only be init in code due to the limitation of @IBDesignab
 
 ### Basic usage
 
-```
+```swift
 let sc = SWSegmentedControl(items: ["A", "B", "C"])
 sc.frame = CGRect(x: 0, y: 0, width: 300, height: 44)
 sc.selectedSegmentIndex = 2 // default to 0
@@ -33,13 +33,13 @@ sc.selectedSegmentIndex = 2 // default to 0
 
 Setting property directly will change segment without animation
 
-```
+```swift
 sc.selectedSegmentIndex = 1
 ```
 
 If you want fine-grain control over animation, you can use `setSelectedSegmentIndex(index: Int, animated: Bool`
 
-```
+```swift
 sc.setSelectedSegmentIndex(1, animated: true)
 ```
 
