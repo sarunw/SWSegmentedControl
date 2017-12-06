@@ -259,7 +259,7 @@ open class SWSegmentedControl: UIControl {
     }
     
     // MARK: - Actions
-    func didTapButton(_ button: UIButton) {
+    @objc func didTapButton(_ button: UIButton) {
         guard let index = self.buttons?.index(of: button) else {
             return
         }
