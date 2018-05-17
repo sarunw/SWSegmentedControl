@@ -14,7 +14,8 @@ class SnapShotTests: FBSnapshotTestCase {
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+//        recordMode = true
     }
     
     override func tearDown() {
@@ -36,6 +37,46 @@ class SnapShotTests: FBSnapshotTestCase {
         view.frame = rect
         
         view.setTitle("Alphabet", forSegmentAt: 0)
+        
+        FBSnapshotVerifyView(view)
+    }
+    
+    func testSegmentedControlWithBadge() {
+        let rect = CGRect(x: 0, y: 0, width: 320, height: 44)
+        let view = SWSegmentedControl(items: ["A", "B", "C"])
+        view.frame = rect
+        view.setBadge("1", forSegmentAt: 0)
+        
+        FBSnapshotVerifyView(view)
+    }
+    
+    func testBadgeFollowTint() {
+        let rect = CGRect(x: 0, y: 0, width: 320, height: 44)
+        let view = SWSegmentedControl(items: ["A", "B", "C"])
+        view.frame = rect
+        view.tintColor = .green
+        view.setBadge("1", forSegmentAt: 0)
+        
+        FBSnapshotVerifyView(view)
+    }
+    
+    func testBadgeFollowTitleColor() {
+        let rect = CGRect(x: 0, y: 0, width: 320, height: 44)
+        let view = SWSegmentedControl(items: ["A", "B", "C"])
+        view.frame = rect
+        view.tintColor = .green
+        view.titleColor = .red
+        view.setBadge("1", forSegmentAt: 0)
+        
+        FBSnapshotVerifyView(view)
+    }
+    
+    func testChangeBadgeFont() {
+        let rect = CGRect(x: 0, y: 0, width: 320, height: 44)
+        let view = SWSegmentedControl(items: ["A", "B", "C"])
+        view.frame = rect
+        view.badgeFont = UIFont.boldSystemFont(ofSize: 10)
+        view.setBadge("1", forSegmentAt: 0)
         
         FBSnapshotVerifyView(view)
     }

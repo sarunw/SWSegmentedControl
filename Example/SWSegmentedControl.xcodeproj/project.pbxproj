@@ -218,10 +218,12 @@
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = NYX2894668;
 						LastSwiftMigration = 0800;
 					};
 					607FACE41AFB9204008FA782 = {
 						CreatedOnToolsVersion = 6.3.1;
+						DevelopmentTeam = NYX2894668;
 						LastSwiftMigration = 0800;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
@@ -495,6 +497,7 @@
 			baseConfigurationReference = F91D524E9AD6DF618430ABEC /* Pods-SWSegmentedControl_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = NYX2894668;
 				INFOPLIST_FILE = SWSegmentedControl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -509,6 +512,7 @@
 			baseConfigurationReference = A707AAC3D02D88FFD2722593 /* Pods-SWSegmentedControl_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = NYX2894668;
 				INFOPLIST_FILE = SWSegmentedControl/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
@@ -523,6 +527,7 @@
 			baseConfigurationReference = B2B124CA7EEFE350CAD0B621 /* Pods-SWSegmentedControl_Tests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = NYX2894668;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -545,6 +550,7 @@
 			baseConfigurationReference = 8CD3622054882458BE8EDD06 /* Pods-SWSegmentedControl_Tests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = NYX2894668;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
