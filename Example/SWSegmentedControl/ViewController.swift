@@ -19,6 +19,7 @@ class ViewController: UIViewController, SWSegmentedControlDelegate {
         
         // Init with-out autolayout
         let sc = SWSegmentedControl(items: ["A", "B", "C"])
+        sc.setBadge("1", forSegmentAt: 0)
         sc.delegate = self
         sc.frame = CGRect(x: 0, y: 0, width: 300, height: 44)
         var center = self.view.center;
