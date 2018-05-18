@@ -58,6 +58,12 @@ open class SWSegmentedControl: UIControl {
         }
     }
     
+    open var badgeContentInsets: UIEdgeInsets? {
+        didSet {
+            self.configureView()
+        }
+    }
+    
     @IBInspectable open var selectedSegmentIndex: Int = 0 {
         didSet {
             self.configureIndicator()
@@ -282,6 +288,7 @@ open class SWSegmentedControl: UIControl {
         button.setTitleColor(self.colorToUse(self.titleColor), for: .selected)
         button.setTitleColor(self.unselectedTitleColor, for: .normal)
         button.badgeColor = colorToUse(badgeColor)
+        button.badgeContentInsets = badgeContentInsets
     }
     
     // MARK: - Actions

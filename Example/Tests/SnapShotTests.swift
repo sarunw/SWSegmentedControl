@@ -91,5 +91,14 @@ class SnapShotTests: FBSnapshotTestCase {
         FBSnapshotVerifyView(view)
     }
     
+    func testChangeBadgeInsets() {
+        let rect = CGRect(x: 0, y: 0, width: 320, height: 44)
+        let view = SWSegmentedControl(items: ["A", "B", "C"])
+        view.frame = rect
+        view.badgeContentInsets = UIEdgeInsets(top: 2, left: 10, bottom: 2, right: 10)
+        view.setBadge("1", forSegmentAt: 0)
+        
+        FBSnapshotVerifyView(view)
+    }
     
 }

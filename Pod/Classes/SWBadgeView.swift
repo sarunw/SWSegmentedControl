@@ -20,6 +20,17 @@ public class SWBadgeView: UIView {
         }
     }
     
+    public var contentInsets: UIEdgeInsets? {
+        didSet {
+            configureView()
+        }
+    }
+    
+    private var topLayoutConstraint: NSLayoutConstraint!
+    private var leadingLayoutConstraint: NSLayoutConstraint!
+    private var trailingLayoutConstraint: NSLayoutConstraint!
+    private var bottomLayoutConstraint: NSLayoutConstraint!
+    
     private var colorToUse: UIColor {
         return badgeColor ?? tintColor
     }
@@ -40,6 +51,15 @@ public class SWBadgeView: UIView {
     
     private func configureView() {
         backgroundColor = colorToUse
+        
+        let contentInsets = self.contentInsets ?? UIEdgeInsets(top: VerticalPadding, left: HorizontalPadding, bottom: VerticalPadding, right: HorizontalPadding)
+        
+        leadingLayoutConstraint.constant = contentInsets.left
+        trailingLayoutConstraint.constant = contentInsets.right
+        topLayoutConstraint.constant = contentInsets.top
+        bottomLayoutConstraint.constant = contentInsets.bottom
+        
+        layoutIfNeeded()
     }
     
     private func commonInit() {
@@ -49,22 +69,16 @@ public class SWBadgeView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         addSubview(label)
         
-        if #available(iOS 9.0, *) {
-            addConstraints([
-                label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: HorizontalPadding),
-                label.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -HorizontalPadding),
-                label.topAnchor.constraint(equalTo: topAnchor, constant: VerticalPadding),
-                label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -VerticalPadding)
-                ])
-        } else {
-            // Fallback on earlier versions
-            addConstraints([
-                NSLayoutConstraint(item: label, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: HorizontalPadding),
-                NSLayoutConstraint(item: label, attribute: .trailing, relatedBy: .equal, toItem: self, attribute: .trailing, multiplier: 1, constant: -HorizontalPadding),
-                NSLayoutConstraint(item: label, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: VerticalPadding),
-                NSLayoutConstraint(item: label, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: -VerticalPadding)
-            ])
-        }
+        leadingLayoutConstraint = NSLayoutConstraint(item: label, attribute: .leading, relatedBy: .equal, toItem: self, attribute: .leading, multiplier: 1, constant: HorizontalPadding)
+        trailingLayoutConstraint = NSLayoutConstraint(item: self, attribute: .trailing, relatedBy: .equal, toItem: label, attribute: .trailing, multiplier: 1, constant: HorizontalPadding)
+        topLayoutConstraint = NSLayoutConstraint(item: label, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: VerticalPadding)
+        bottomLayoutConstraint = NSLayoutConstraint(item: self, attribute: .bottom, relatedBy: .equal, toItem: label, attribute: .bottom, multiplier: 1, constant: VerticalPadding)
+        addConstraints([
+            leadingLayoutConstraint,
+            trailingLayoutConstraint,
+            topLayoutConstraint,
+            bottomLayoutConstraint
+        ])
     }
     
     override public func tintColorDidChange() {

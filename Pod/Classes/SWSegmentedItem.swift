@@ -34,6 +34,12 @@ class SWSegmentedItem: UIButton {
         }
     }
     
+    var badgeContentInsets: UIEdgeInsets? {
+        didSet {
+            self.configureView()
+        }
+    }
+    
     override func setTitleColor(_ color: UIColor?, for state: UIControlState) {
         super.setTitleColor(color, for: state)
         
@@ -57,6 +63,7 @@ class SWSegmentedItem: UIButton {
         }
         
         badgeView.badgeColor = badgeColor ?? titleColor(for: .selected)
+        badgeView.contentInsets = badgeContentInsets
     }
     
     override init(frame: CGRect) {
