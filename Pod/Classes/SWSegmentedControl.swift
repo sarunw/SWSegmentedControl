@@ -52,6 +52,12 @@ open class SWSegmentedControl: UIControl {
         }
     }
     
+    @IBInspectable open var badgeColor: UIColor? {
+        didSet {
+            self.configureView()
+        }
+    }
+    
     @IBInspectable open var selectedSegmentIndex: Int = 0 {
         didSet {
             self.configureIndicator()
@@ -275,7 +281,7 @@ open class SWSegmentedControl: UIControl {
         button.textLabel.font = self.font
         button.setTitleColor(self.colorToUse(self.titleColor), for: .selected)
         button.setTitleColor(self.unselectedTitleColor, for: .normal)
-        
+        button.badgeColor = colorToUse(badgeColor)
     }
     
     // MARK: - Actions

@@ -60,7 +60,7 @@ class SnapShotTests: FBSnapshotTestCase {
         FBSnapshotVerifyView(view)
     }
     
-    func testBadgeFollowTitleColor() {
+    func testBadgeFollowTintColor() {
         let rect = CGRect(x: 0, y: 0, width: 320, height: 44)
         let view = SWSegmentedControl(items: ["A", "B", "C"])
         view.frame = rect
@@ -76,6 +76,16 @@ class SnapShotTests: FBSnapshotTestCase {
         let view = SWSegmentedControl(items: ["A", "B", "C"])
         view.frame = rect
         view.badgeFont = UIFont.boldSystemFont(ofSize: 10)
+        view.setBadge("1", forSegmentAt: 0)
+        
+        FBSnapshotVerifyView(view)
+    }
+    
+    func testChangeBadgeColor() {
+        let rect = CGRect(x: 0, y: 0, width: 320, height: 44)
+        let view = SWSegmentedControl(items: ["A", "B", "C"])
+        view.frame = rect
+        view.badgeColor = .orange
         view.setBadge("1", forSegmentAt: 0)
         
         FBSnapshotVerifyView(view)
