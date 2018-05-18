@@ -17,7 +17,7 @@ open class SWSegmentedControl: UIControl {
     
     open weak var delegate: SWSegmentedControlDelegate?
     
-    private var selectionIndicatorView: UIView!
+    private var selectionIndicatorView: UIView?
     private var buttons: [SWSegmentedItem] = []
     public var items: [String] = ["First", "Second"] {
         didSet {
@@ -146,8 +146,6 @@ open class SWSegmentedControl: UIControl {
         self.backgroundColor = UIColor.clear
         self.initButtons()
         self.initIndicator()
-        
-        self.selectedSegmentIndex = 0
     }
     
     open override func prepareForInterfaceBuilder() {
@@ -314,7 +312,7 @@ open class SWSegmentedControl: UIControl {
     private func configureIndicator() {
         self.indicatorXConstraint?.constant =  CGFloat(self.selectedSegmentIndex) * self.itemWidth
         indicatorWidthConstraint?.constant = -(2 * indicatorPadding)
-        self.selectionIndicatorView.backgroundColor = self.colorToUse(self.indicatorColor)
+        self.selectionIndicatorView?.backgroundColor = self.colorToUse(self.indicatorColor)
     }
     
     private func configureButtons() {
