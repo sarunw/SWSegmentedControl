@@ -18,8 +18,21 @@ open class SWSegmentedControl: UIControl {
     open weak var delegate: SWSegmentedControlDelegate?
     
     private var selectionIndicatorView: UIView!
-    private var buttons: [SWSegmentedItem]?
-    private var items: [String] = ["First", "Second"]
+    private var buttons: [SWSegmentedItem] = []
+    public var items: [String] = ["First", "Second"] {
+        didSet {
+            _selectedSegmentIndex = 0
+            
+            if oldValue.count == items.count {
+                // Same elements, layout no need to change, just update titles
+                updateTitles()
+            } else {
+                // Change layout
+                initButtons()
+                initIndicator()
+            }
+        }
+    }
     
     // Wait for a day UIFont will be inspectable
     @IBInspectable open var font: UIFont = DefaultTitleFont {
@@ -64,30 +77,36 @@ open class SWSegmentedControl: UIControl {
         }
     }
     
-    @IBInspectable open var selectedSegmentIndex: Int = 0 {
-        didSet {
+    private var _selectedSegmentIndex: Int = 0
+    
+    @IBInspectable open var selectedSegmentIndex: Int {
+        set {
+            _selectedSegmentIndex = newValue
+            
             self.configureIndicator()
-
-            if let buttons = self.buttons {
-                for button in buttons {
-                    button.isSelected = false
-                }
-                
-                let selectedButton = buttons[selectedSegmentIndex]
-                selectedButton.isSelected = true
+            
+            for button in buttons {
+                button.isSelected = false
             }
+            
+            let selectedButton = buttons[selectedSegmentIndex]
+            selectedButton.isSelected = true
+        }
+       
+        get {
+            return _selectedSegmentIndex
         }
     }
     
-    private var indicatorXConstraint: NSLayoutConstraint!
+    private var indicatorXConstraint: NSLayoutConstraint?
     
     @IBInspectable open var indicatorThickness: CGFloat = 3 {
         didSet {
-            self.indicatorHeightConstraint.constant = self.indicatorThickness
+            self.indicatorHeightConstraint?.constant = self.indicatorThickness
         }
     }
     
-    private var indicatorWidthConstraint: NSLayoutConstraint!
+    private var indicatorWidthConstraint: NSLayoutConstraint?
     
     @IBInspectable open var indicatorPadding: CGFloat = 0 {
         didSet {
@@ -95,7 +114,7 @@ open class SWSegmentedControl: UIControl {
         }
     }
     
-    private var indicatorHeightConstraint: NSLayoutConstraint!
+    private var indicatorHeightConstraint: NSLayoutConstraint?
     
     var numberOfSegments: Int {
         return items.count
@@ -142,8 +161,22 @@ open class SWSegmentedControl: UIControl {
         self.configureIndicator()
     }
     
+    private func updateTitles() {
+        for (index, title) in items.enumerated() {
+            let button = buttons[index]
+            button.title = title
+        }
+    }
+    
     private func initIndicator() {
-        guard self.numberOfSegments > 0 else { return }
+        self.selectionIndicatorView?.removeFromSuperview()
+        indicatorXConstraint = nil
+        indicatorWidthConstraint = nil
+        indicatorHeightConstraint = nil
+        
+        guard self.numberOfSegments > 0 else {
+            return
+        }
         
         let selectionIndicatorView = UIView()
         self.selectionIndicatorView = selectionIndicatorView
@@ -169,7 +202,14 @@ open class SWSegmentedControl: UIControl {
     }
     
     private func initButtons() {
-        guard self.numberOfSegments > 0 else { return }
+        for button in self.buttons {
+            button.removeFromSuperview()
+        }
+        
+        guard self.numberOfSegments > 0 else {
+            return
+        }
+        
         
         var views = [String: AnyObject]()
         var xVisualFormat = "H:|"
@@ -187,6 +227,7 @@ open class SWSegmentedControl: UIControl {
             button.translatesAutoresizingMaskIntoConstraints = false
             button.title = titleForSegmentAtIndex(index)
             button.addTarget(self, action: #selector(SWSegmentedControl.didTapButton(_:)), for: .touchUpInside)
+            button.isSelected = (index == selectedSegmentIndex)
             
             buttons.append(button)
             self.addSubview(button)
@@ -211,8 +252,12 @@ open class SWSegmentedControl: UIControl {
         NSLayoutConstraint.activate(yConstraints)
     }
     
+    open func removeAllSegments() {
+        items = []
+    }
+    
     open func setTitle(_ title: String, forSegmentAt index: Int) {
-        guard let buttons = buttons, index < items.count else {
+        guard index < items.count else {
             return
         }
         
@@ -223,7 +268,7 @@ open class SWSegmentedControl: UIControl {
     }
     
     open func setBadge(_ badge: String?, forSegmentAt index: Int) {
-        guard let buttons = buttons, index < buttons.count else {
+        guard index < buttons.count else {
             return
         }
         
@@ -267,16 +312,12 @@ open class SWSegmentedControl: UIControl {
     }
     
     private func configureIndicator() {
-        self.indicatorXConstraint.constant =  CGFloat(self.selectedSegmentIndex) * self.itemWidth
-        indicatorWidthConstraint.constant = -(2 * indicatorPadding)
+        self.indicatorXConstraint?.constant =  CGFloat(self.selectedSegmentIndex) * self.itemWidth
+        indicatorWidthConstraint?.constant = -(2 * indicatorPadding)
         self.selectionIndicatorView.backgroundColor = self.colorToUse(self.indicatorColor)
     }
     
     private func configureButtons() {
-        guard let buttons = self.buttons else {
-            return
-        }
-        
         for button in buttons {
             self.configureButton(button)
         }
@@ -293,7 +334,7 @@ open class SWSegmentedControl: UIControl {
     
     // MARK: - Actions
     @objc func didTapButton(_ button: SWSegmentedItem) {
-        guard let index = self.buttons?.index(of: button) else {
+        guard let index = self.buttons.index(of: button) else {
             return
         }
         
@@ -315,12 +356,12 @@ open class SWSegmentedControl: UIControl {
     
     // MARK: - Layout Helpers
     private var xToItem: UIView {
-        return self.buttons![self.selectedSegmentIndex]
+        return self.buttons[0]
     }
     
     private var wToItem: UIView {
         
-        return self.buttons![self.selectedSegmentIndex]
+        return self.buttons[0]
     }
     
     private var itemWidth: CGFloat {

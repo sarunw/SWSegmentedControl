@@ -16,7 +16,7 @@ class ViewController: UIViewController, SWSegmentedControlDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        
+
         // Init with-out autolayout
         let sc = SWSegmentedControl(items: ["A", "B", "C"])
         sc.setBadge("1", forSegmentAt: 0)
@@ -51,6 +51,13 @@ class ViewController: UIViewController, SWSegmentedControlDelegate {
 
     @IBAction func didTapNoAnimation(_ sender: AnyObject) {
         self.segmentedControl.selectedSegmentIndex = 1
+    }
+    
+    @IBAction func didTapRemoveAllSegments(_ sender: Any) {
+        segmentedControl.removeAllSegments()
+    }
+    @IBAction func didChangeSegments(_ sender: Any) {
+        segmentedControl.items = ["First", "Second", "Third"]
     }
     
     @IBAction func segmentedChanged(_ sender: SWSegmentedControl) {

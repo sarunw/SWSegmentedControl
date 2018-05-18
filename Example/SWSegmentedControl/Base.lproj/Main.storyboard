@@ -29,6 +29,13 @@
                                     <action selector="didTapNoAnimation:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="OXN-EI-VGD"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fDO-YX-DtS">
+                                <rect key="frame" x="10" y="575" width="355" height="30"/>
+                                <state key="normal" title="Remove all segments"/>
+                                <connections>
+                                    <action selector="didTapRemoveAllSegments:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="BCc-N4-pdp"/>
+                                </connections>
+                            </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yAZ-P8-ugo" customClass="SWSegmentedControl" customModule="SWSegmentedControl">
                                 <rect key="frame" x="37.5" y="353.5" width="300" height="100"/>
                                 <constraints>
@@ -54,19 +61,32 @@
                                     <action selector="didTapButton:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="drJ-3y-p02"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B4i-7q-ish">
+                                <rect key="frame" x="10" y="613" width="355" height="30"/>
+                                <state key="normal" title="Change segments"/>
+                                <connections>
+                                    <action selector="didChangeSegments:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="WfH-rU-yj9"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="T7m-Xq-Q3Q" secondAttribute="trailing" constant="10" id="3bS-zH-lsU"/>
                             <constraint firstItem="yAZ-P8-ugo" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="7AW-ly-Lxx"/>
+                            <constraint firstItem="B4i-7q-ish" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="9PD-O7-b9A"/>
                             <constraint firstItem="T7m-Xq-Q3Q" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="Lvn-wb-nL3"/>
                             <constraint firstItem="T7m-Xq-Q3Q" firstAttribute="top" secondItem="yAZ-P8-ugo" secondAttribute="bottom" constant="46" id="NIA-Nb-aO7"/>
                             <constraint firstItem="yAZ-P8-ugo" firstAttribute="top" secondItem="kh9-bI-dsS" secondAttribute="centerY" constant="20" id="Osc-Yg-a4N"/>
                             <constraint firstAttribute="trailing" secondItem="be8-rV-Eyw" secondAttribute="trailing" constant="10" id="Swz-yl-eZG"/>
                             <constraint firstItem="be8-rV-Eyw" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="WIn-VZ-QRs"/>
                             <constraint firstItem="T7m-Xq-Q3Q" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="eXe-RH-5x8"/>
+                            <constraint firstAttribute="trailing" secondItem="B4i-7q-ish" secondAttribute="trailing" constant="10" id="i1y-YK-i1k"/>
                             <constraint firstItem="be8-rV-Eyw" firstAttribute="top" secondItem="T7m-Xq-Q3Q" secondAttribute="bottom" constant="8" id="i5V-Rt-ABg"/>
+                            <constraint firstAttribute="trailing" secondItem="fDO-YX-DtS" secondAttribute="trailing" constant="10" id="iat-rW-ZtJ"/>
+                            <constraint firstItem="fDO-YX-DtS" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="rjt-FC-5s0"/>
                             <constraint firstItem="be8-rV-Eyw" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="10" id="tRS-WI-A5I"/>
+                            <constraint firstItem="B4i-7q-ish" firstAttribute="top" secondItem="fDO-YX-DtS" secondAttribute="bottom" constant="8" id="xp8-NN-wlV"/>
+                            <constraint firstItem="fDO-YX-DtS" firstAttribute="top" secondItem="be8-rV-Eyw" secondAttribute="bottom" constant="8" id="zLM-Vx-gk1"/>
                         </constraints>
                     </view>
                     <connections>
