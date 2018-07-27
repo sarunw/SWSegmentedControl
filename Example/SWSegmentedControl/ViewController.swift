@@ -23,14 +23,19 @@ class ViewController: UIViewController, SWSegmentedControlDelegate {
         sc.delegate = self
         sc.frame = CGRect(x: 0, y: 0, width: 300, height: 44)
         var center = self.view.center;
-        center.y = 40
+        center.y = 100
         sc.center = center
         sc.autoresizingMask = [.flexibleWidth, .flexibleBottomMargin]
         sc.selectedSegmentIndex = 2
         self.view.addSubview(sc)
 
         // Init with autolayout
-        let sc2 = SWSegmentedControl(items: ["A", "B", "C"])
+
+        let textConfiguration = SWSegmentLabelConfiguration(numberOfLines: 0,
+                                                        textAlignment: .center,
+                                                        lineBreakMode: .byWordWrapping)
+        let sc2 = SWSegmentedControl(items: ["Item 1", "Item 2 on several lines", "Item 3"],
+                                     labelConfiguration: textConfiguration)
         sc2.selectedSegmentIndex = 1
         sc2.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(sc2)

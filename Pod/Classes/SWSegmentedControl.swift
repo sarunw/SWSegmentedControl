@@ -34,6 +34,12 @@ open class SWSegmentedControl: UIControl {
         }
     }
     
+    open var labelConfiguration: SWSegmentLabelConfiguration? {
+        didSet {
+            self.configureView()
+        }
+    }
+    
     // Wait for a day UIFont will be inspectable
     @IBInspectable open var font: UIFont = DefaultTitleFont {
         didSet {
@@ -136,9 +142,10 @@ open class SWSegmentedControl: UIControl {
         self.commonInit()
     }
     
-    public init(items: [String]) {
+    public init(items: [String], labelConfiguration: SWSegmentLabelConfiguration? = nil) {
         super.init(frame: CGRect.zero)
         self.items = items
+        self.labelConfiguration = labelConfiguration
         self.commonInit()
     }
     
@@ -324,6 +331,23 @@ open class SWSegmentedControl: UIControl {
     private func configureButton(_ button: SWSegmentedItem) {
         button.badgeView.label.font = self.badgeFont
         button.textLabel.font = self.font
+        if let configuration = labelConfiguration {
+            if let numberOfLines = configuration.numberOfLines {
+                button.textLabel.numberOfLines = numberOfLines
+            }
+            if let textAlignment = configuration.textAlignment {
+                button.textLabel.textAlignment = textAlignment
+            }
+            if let lineBreakMode = configuration.lineBreakMode {
+                button.textLabel.lineBreakMode = lineBreakMode
+            }
+            if let adjustsFontSizeToFitWidth = configuration.adjustsFontSizeToFitWidth {
+                button.textLabel.adjustsFontSizeToFitWidth = adjustsFontSizeToFitWidth
+            }
+            if let minimumScaleFactor = configuration.minimumScaleFactor {
+                button.textLabel.minimumScaleFactor = minimumScaleFactor
+            }
+        }
         button.setTitleColor(self.colorToUse(self.titleColor), for: .selected)
         button.setTitleColor(self.unselectedTitleColor, for: .normal)
         button.badgeColor = colorToUse(badgeColor)
