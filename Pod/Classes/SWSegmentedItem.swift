@@ -97,13 +97,17 @@ class SWSegmentedItem: UIButton {
         customView.addSubview(textLabel)
         
         if #available(iOS 9.0, *) {
-            addConstraints([
+            let labelConstaints = [
                 textLabel.leadingAnchor.constraint(greaterThanOrEqualTo: customView.leadingAnchor, constant: Padding),
                 textLabel.centerXAnchor.constraint(equalTo: customView.centerXAnchor),
                 textLabel.centerYAnchor.constraint(equalTo: customView.centerYAnchor),
                 textLabel.topAnchor.constraint(greaterThanOrEqualTo: topAnchor, constant: Padding),
                 textLabel.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -Padding)
-                ])
+                ]
+            labelConstaints[0].priority = .defaultHigh
+            labelConstaints[3].priority = .defaultHigh
+            labelConstaints[4].priority = .defaultHigh
+            addConstraints(labelConstaints)
         } else {
             // Fallback on earlier versions
             addConstraints([
@@ -119,10 +123,12 @@ class SWSegmentedItem: UIButton {
         badgeView.translatesAutoresizingMaskIntoConstraints = false
         customView.addSubview(badgeView)
 
-        addConstraints([
+        let badgeConstraints = [
             NSLayoutConstraint(item: badgeView, attribute: .leading, relatedBy: .equal, toItem: textLabel, attribute: .trailing, multiplier: 1, constant: BadgeMargin),
             NSLayoutConstraint(item: badgeView, attribute: .centerY, relatedBy: .equal, toItem: textLabel, attribute: .centerY, multiplier: 1, constant: 0),
             NSLayoutConstraint(item: badgeView, attribute: .trailing, relatedBy: .lessThanOrEqual, toItem: customView, attribute: .trailing, multiplier: 1, constant: -Padding)
-        ])
+        ]
+        badgeConstraints.last?.priority = .defaultHigh
+        addConstraints(badgeConstraints)
     }
 }
