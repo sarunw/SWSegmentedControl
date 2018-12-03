@@ -8,6 +8,6 @@ target 'SWSegmentedControl_Example' do
     inherit! :search_paths
     
     
-    pod 'FBSnapshotTestCase'
+    pod 'iOSSnapshotTestCase'
   end
 end
