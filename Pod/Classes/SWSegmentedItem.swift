@@ -40,7 +40,7 @@ class SWSegmentedItem: UIButton {
         }
     }
     
-    override func setTitleColor(_ color: UIColor?, for state: UIControlState) {
+    override func setTitleColor(_ color: UIColor?, for state: UIControl.State) {
         super.setTitleColor(color, for: state)
         
         configureView()

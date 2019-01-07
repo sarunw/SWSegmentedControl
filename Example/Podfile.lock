@@ -4,11 +4,15 @@ PODS:
   - FBSnapshotTestCase/Core (2.1.4)
   - FBSnapshotTestCase/SwiftSupport (2.1.4):
     - FBSnapshotTestCase/Core
-  - SWSegmentedControl (2.6.1)
+  - SWSegmentedControl (2.7.0)
 
 DEPENDENCIES:
   - FBSnapshotTestCase
   - SWSegmentedControl (from `../`)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - FBSnapshotTestCase
 
 EXTERNAL SOURCES:
   SWSegmentedControl:
@@ -16,8 +20,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
-  SWSegmentedControl: 5770c91bb4b438be300371221e38f4af5100bba2
+  SWSegmentedControl: fe6d018018e8ecac943b2d1b4a797ad8c45ef45f
 
-PODFILE CHECKSUM: 4d73b6e40f519ba6f6a5a464f3d226d71ae8cddc
+PODFILE CHECKSUM: c4e544f7bd9ac8197549442bf09c22ad71289a29
 
-COCOAPODS: 1.2.0
+COCOAPODS: 1.5.3
