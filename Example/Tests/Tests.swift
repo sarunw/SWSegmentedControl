@@ -33,4 +33,14 @@ class Tests: FBSnapshotTestCase {
         FBSnapshotVerifyView(sc)
     }
     
+    func testSetSelectedIndex() {
+        // This is an example of a functional test case.
+        let sc = SWSegmentedControl(items: ["A", "B", "C"])
+        sc.frame = CGRect(x: 0, y: 0, width: 300, height: 44)
+        sc.indicatorPadding = 10
+        sc.selectedSegmentIndex = 1
+        
+        FBSnapshotVerifyView(sc)
+    }
+    
 }
