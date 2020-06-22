@@ -35,9 +35,16 @@ open class SWSegmentedControl: UIControl {
     }
     
     // Wait for a day UIFont will be inspectable
+    /// For unselected state
     @IBInspectable open var font: UIFont = DefaultTitleFont {
         didSet {
             self.configureView()
+        }
+    }
+    /// For selected state
+    @IBInspectable open var selectedFont: UIFont = DefaultTitleFont {
+        didSet {
+            configureView()
         }
     }
     
@@ -221,7 +228,11 @@ open class SWSegmentedControl: UIControl {
         }
         for index in 0..<self.numberOfSegments {
             let button = SWSegmentedItem()
-            self.configureButton(button)
+            if index == _selectedSegmentIndex {
+                configureButton(button, with: selectedFont)
+            } else {
+                configureButton(button, with: font)
+            }
             button.translatesAutoresizingMaskIntoConstraints = false
             button.title = titleForSegmentAtIndex(index)
             button.addTarget(self, action: #selector(SWSegmentedControl.didTapButton(_:)), for: .touchUpInside)
@@ -316,14 +327,18 @@ open class SWSegmentedControl: UIControl {
     }
     
     private func configureButtons() {
-        for button in buttons {
-            self.configureButton(button)
+        for (index, button) in buttons.enumerated() {
+            if index == _selectedSegmentIndex {
+                configureButton(button, with: selectedFont)
+            } else {
+                configureButton(button, with: font)
+            }
         }
     }
     
-    private func configureButton(_ button: SWSegmentedItem) {
+    private func configureButton(_ button: SWSegmentedItem, with font: UIFont) {
         button.badgeView.label.font = self.badgeFont
-        button.textLabel.font = self.font
+        button.textLabel.font = font
         button.setTitleColor(self.colorToUse(self.titleColor), for: .selected)
         button.setTitleColor(self.unselectedTitleColor, for: .normal)
         button.badgeColor = colorToUse(badgeColor)
@@ -350,6 +365,14 @@ open class SWSegmentedControl: UIControl {
         
         delegate?.segmentedControl?(self, didDeselectItemAtIndex: selectedSegmentIndex)
         delegate?.segmentedControl?(self, didSelectItemAtIndex: index)
+        // update the font after selection
+        for (index, b) in buttons.enumerated() {
+            if index == _selectedSegmentIndex {
+                b.textLabel.font = selectedFont
+            } else {
+                b.textLabel.font = font
+            }
+        }
     }
     
     // MARK: - Layout Helpers
